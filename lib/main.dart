@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getx/GetxBindings/Bindings.dart';
 import 'package:flutter_getx/Screens/Screen1.dart';
+import 'package:flutter_getx/getxStateManagement/HomeController.dart';
 import 'package:get/get.dart';
-
+import 'Api/SampleApiService.dart';
 import 'Screens/Screen2.dart';
+import 'Transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialBinding: HomeBindings(),
       getPages: [
         GetPage(name: "/", page: ()=> MyHomePage(title: 'Flutter Demo Home Page')),
         GetPage(name: "/screen1", page: ()=> Screen1()),
@@ -39,6 +43,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  late SampleApiService sampleApiService;
+  final HomeController homeController = Get.find();
+  final Transactions transactions = Get.find();
+
+  @override
+  void initState() {
+    sampleApiService=Get.put(SampleApiService());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +152,44 @@ class _MyHomePageState extends State<MyHomePage> {
                   Get.toNamed("/screen1");
                 },
               ),
-            )
+            ),
+
+            //Di=Sample Di
+            Card(
+              elevation: 10,
+              child: ListTile(
+                title: Text("DI Sample"),
+                subtitle: Text("Tap to fetch data from api"),
+                onTap: (){
+                  sampleApiService.fetchData();
+                },
+              ),
+            ),
+
+            //Di=Bindings
+            Card(
+              elevation: 10,
+              child: ListTile(
+                title: Text("DI Bindings Sample"),
+                subtitle: Text("Tap to perform db operation"),
+                onTap: (){
+                  homeController.dbOperation();
+                },
+              ),
+            ),
+
+            //Di=Bindings(Factory pattern= everytime create a new instance)
+            Card(
+              elevation: 10,
+              child: ListTile(
+                title: Text("Create transaction"),
+                subtitle: Text("Tap to generate transaction"),
+                onTap: (){
+                  transactions.createTransaction();
+                },
+              ),
+            ),
+
           ],
         ),
       ),
