@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx/GetxBindings/Bindings.dart';
+import 'package:flutter_getx/Screens/ProductScreen.dart';
 import 'package:flutter_getx/Screens/Screen1.dart';
-import 'package:flutter_getx/getxStateManagement/HomeController.dart';
 import 'package:get/get.dart';
 import 'Api/SampleApiService.dart';
+import 'Controller/HomeController.dart';
 import 'Screens/Screen2.dart';
 import 'Transactions.dart';
 
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: "/", page: ()=> MyHomePage(title: 'Flutter Demo Home Page')),
         GetPage(name: "/screen1", page: ()=> Screen1()),
-        GetPage(name: "/screen2", page: ()=> Screen2())
+        GetPage(name: "/screen2", page: ()=> Screen2()),
+        GetPage(name: "/productScreen", page: ()=> ProductScreen())
       ],
     );
   }
@@ -186,6 +188,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 subtitle: Text("Tap to generate transaction"),
                 onTap: (){
                   transactions.createTransaction();
+                },
+              ),
+            ),
+
+            //navigate to product screen
+            Card(
+              elevation: 10,
+              child: ListTile(
+                title: Text("Navigate"),
+                subtitle: Text("navigate to product screen"),
+                onTap: (){
+                  Get.toNamed("/productScreen");
                 },
               ),
             ),

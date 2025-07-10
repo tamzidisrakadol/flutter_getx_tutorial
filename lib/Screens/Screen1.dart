@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/Screens/Screen2.dart';
-import 'package:flutter_getx/getxStateManagement/CounterController.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+
+import '../Controller/CounterController.dart';
 
 class Screen1 extends StatefulWidget {
   const Screen1({super.key});
